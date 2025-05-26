@@ -1,0 +1,69 @@
+# Grupo: Breno Valente Manhães - 122038517; João Pedro Moretti Fontes Ferreira - 122081366; Murilo Jorge de Figueiredo - 122079597
+Tabela,Campo,Tipo de Dado,Restrição
+CLIENTE,cliente_id,SERIAL,PK
+CLIENTE,tipo,CHAR(1),"NOT NULL, CHECK (F, J)"
+CLIENTE,nome_razao,VARCHAR(100),NOT NULL
+CLIENTE,cpf_cnpj,CHAR(14),"NOT NULL, UNIQUE"
+CLIENTE,telefone,VARCHAR(20),
+CLIENTE,email,VARCHAR(100),
+CONDUTOR,condutor_id,SERIAL,PK
+CONDUTOR,cliente_id,INT,"FK CLIENTE(cliente_id), NOT NULL"
+CONDUTOR,nome,VARCHAR(100),NOT NULL
+CONDUTOR,cnh_numero,VARCHAR(20),"NOT NULL, UNIQUE"
+CONDUTOR,cnh_categoria,VARCHAR(2),NOT NULL
+CONDUTOR,cnh_validade,DATE,NOT NULL
+GRUPO_VEICULO,grupo_id,SERIAL,PK
+GRUPO_VEICULO,nome,VARCHAR(50),"NOT NULL, UNIQUE"
+GRUPO_VEICULO,tarifa_diaria,"DECIMAL(10,2)",NOT NULL
+VEICULO,veiculo_id,SERIAL,PK
+VEICULO,grupo_id,INT,"FK GRUPO_VEICULO(grupo_id), NOT NULL"
+VEICULO,placa,CHAR(7),"NOT NULL, UNIQUE"
+VEICULO,chassis,VARCHAR(17),"NOT NULL, UNIQUE"
+VEICULO,marca,VARCHAR(50),NOT NULL
+VEICULO,modelo,VARCHAR(50),NOT NULL
+VEICULO,cor,VARCHAR(30),
+VEICULO,mecanizacao,VARCHAR(10),"NOT NULL, CHECK (Manual, Auto)"
+VEICULO,ar_condicionado,BOOLEAN,NOT NULL
+VEICULO,cadeirinha,BOOLEAN,NOT NULL
+PRONTUARIO,prontuario_id,SERIAL,PK
+PRONTUARIO,veiculo_id,INT,"FK VEICULO(veiculo_id), NOT NULL"
+PRONTUARIO,data_registro,TIMESTAMP,NOT NULL
+PRONTUARIO,descricao,TEXT,
+FOTO_VEICULO,foto_id,SERIAL,PK
+FOTO_VEICULO,veiculo_id,INT,"FK VEICULO(veiculo_id), NOT NULL"
+FOTO_VEICULO,url,VARCHAR(255),NOT NULL
+FOTO_VEICULO,tipo,VARCHAR(20),NOT NULL
+PATIO,patio_id,SERIAL,PK
+PATIO,nome,VARCHAR(100),"NOT NULL, UNIQUE"
+PATIO,localizacao,VARCHAR(150),
+VAGA,vaga_id,SERIAL,PK
+VAGA,patio_id,INT,"FK PATIO(patio_id), NOT NULL"
+VAGA,codigo,VARCHAR(10),NOT NULL
+RESERVA,reserva_id,SERIAL,PK
+RESERVA,cliente_id,INT,"FK CLIENTE(cliente_id), NOT NULL"
+RESERVA,grupo_id,INT,"FK GRUPO_VEICULO(grupo_id), NOT NULL"
+RESERVA,data_inicio,DATE,NOT NULL
+RESERVA,data_fim_previsto,DATE,NOT NULL
+RESERVA,patio_retirada_id,INT,"FK PATIO(patio_id), NOT NULL"
+RESERVA,status,VARCHAR(20),"NOT NULL, CHECK (Ativa, Cancelada, Concluída)"
+LOCACAO,locacao_id,SERIAL,PK
+LOCACAO,reserva_id,INT,FK RESERVA(reserva_id)
+LOCACAO,condutor_id,INT,"FK CONDUTOR(condutor_id), NOT NULL"
+LOCACAO,veiculo_id,INT,"FK VEICULO(veiculo_id), NOT NULL"
+LOCACAO,data_retirada,TIMESTAMP,NOT NULL
+LOCACAO,patio_saida_id,INT,"FK PATIO(patio_id), NOT NULL"
+LOCACAO,data_devolucao_prevista,TIMESTAMP,NOT NULL
+LOCACAO,data_devolucao_real,TIMESTAMP,
+LOCACAO,patio_chegada_id,INT,FK PATIO(patio_id)
+LOCACAO,estado_entrega,TEXT,
+LOCACAO,estado_devolucao,TEXT,
+PROTECAO_ADICIONAL,protecao_id,SERIAL,PK
+PROTECAO_ADICIONAL,descricao,VARCHAR(100),NOT NULL
+LOCACAO_PROTECAO,locacao_id,INT,"PK, FK LOCACAO(locacao_id)"
+LOCACAO_PROTECAO,protecao_id,INT,"PK, FK PROTECAO_ADICIONAL(protecao_id)"
+COBRANCA,cobranca_id,SERIAL,PK
+COBRANCA,locacao_id,INT,"FK LOCACAO(locacao_id), NOT NULL"
+COBRANCA,data_cobranca,TIMESTAMP,NOT NULL
+COBRANCA,valor_base,"DECIMAL(12,2)",NOT NULL
+COBRANCA,valor_final,"DECIMAL(12,2)",
+COBRANCA,status_pagamento,VARCHAR(20),"NOT NULL, CHECK (Pendente, Pago, Cancelado)"
