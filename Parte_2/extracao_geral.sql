@@ -340,14 +340,15 @@ SELECT
     ct.id_contrato::VARCHAR,
     ct.id_cliente::VARCHAR,
     ct.id_veiculo::VARCHAR,
-    ct.data_hora_contrato::DATE,
-    cb.data_emissao,  -- usaremos data da fatura como data_fim
+    r.data_hora_retirada_fim::DATE,
+    ct.data_hora_contrato::DATE,  -- usaremos data do contrato como data_fim
     cb.valor,
     ct.status_locacao,
     ct.id_patio_retirada::VARCHAR,
     ct.id_patio_devolucao_efetiva::VARCHAR,
     'rickauer' AS fonte_dados
-FROM rickauer.contrato ct
+FROM rickauer.reserva r
+LEFT JOIN rickauer.contrato ct ON ct.id_reserva = r.id_reserva
 LEFT JOIN rickauer.cobranca cb ON cb.id_contrato = ct.id_contrato;
 
 -- ========================
@@ -392,6 +393,7 @@ SELECT
 FROM rickauer.patio p
 LEFT JOIN rickauer.vaga va ON va.id_patio = p.id_patio
 LEFT JOIN rickauer.veiculo v ON v.id_vaga_atual = va.id_vaga;
+
 
 -- wesleyConceicao/extracao.sql
 -- ========================

@@ -1,13 +1,10 @@
--- Quantidade de veículos por grupo e origem da empresa
 SELECT
     dp.localizacao AS patio,
     dv.grupo_padronizado AS grupo_veiculo,
-    dv.marca,
-    dv.modelo,
     fp.origem_empresa AS empresa_origem,
-    COUNT(*) AS total_veiculos
+    COUNT(*) AS qtd_veiculos
 FROM dw.fato_patio fp
-JOIN dw.dim_veiculo dv ON fp.veiculo_sk = dv.veiculo_sk
-JOIN dw.dim_patio dp ON fp.patio_sk = dp.patio_sk
-GROUP BY dp.localizacao, dv.grupo_padronizado, dv.marca, dv.modelo, fp.origem_empresa
+JOIN dw.dim_patio dp ON dp.patio_sk = fp.patio_sk
+JOIN dw.dim_veiculo dv ON dv.veiculo_sk = fp.veiculo_sk
+GROUP BY dp.localizacao, dv.grupo_padronizado, fp.origem_empresa
 ORDER BY dp.localizacao, dv.grupo_padronizado;

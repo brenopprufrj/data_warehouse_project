@@ -1,10 +1,9 @@
--- Ranking dos grupos de veículos mais alugados por cidade
 SELECT
     dv.grupo_padronizado AS grupo_veiculo,
-    dc.cidade AS cidade_cliente,
-    COUNT(*) AS total_locacoes
+    dc.cidade AS cidade_origem_cliente,
+    COUNT(*) AS qtd_locacoes
 FROM dw.fato_locacao fl
-JOIN dw.dim_veiculo dv ON fl.veiculo_sk = dv.veiculo_sk
-JOIN dw.dim_cliente dc ON fl.cliente_sk = dc.cliente_sk
+JOIN dw.dim_cliente dc ON dc.cliente_sk = fl.cliente_sk
+JOIN dw.dim_veiculo dv ON dv.veiculo_sk = fl.veiculo_sk
 GROUP BY dv.grupo_padronizado, dc.cidade
-ORDER BY total_locacoes DESC;
+ORDER BY qtd_locacoes DESC;
