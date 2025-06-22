@@ -7,7 +7,7 @@ SET search_path TO staging;
 CREATE TABLE staging.cliente (
     cliente_id         VARCHAR(50),
     nome               VARCHAR(255),
-    tipo_pessoa        CHAR(1),  -- 'F' ou 'J'
+    tipo_pessoa        CHAR(2),  -- 'F' ou 'J'
     cpf_cnpj           VARCHAR(20),
     email              VARCHAR(100),
     telefone           VARCHAR(20),
@@ -42,6 +42,8 @@ CREATE TABLE staging.locacao (
     data_fim           DATE,
     valor_total        DECIMAL(10,2),
     status             VARCHAR(20),
+    patio_origem_id    VARCHAR(50),  -- para retirada
+    patio_destino_id   VARCHAR(50),  -- para devolução
     data_ingestao      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fonte_dados        VARCHAR(100)
 );
@@ -67,3 +69,5 @@ CREATE TABLE staging.patio (
     data_ingestao      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fonte_dados        VARCHAR(100)
 );
+
+

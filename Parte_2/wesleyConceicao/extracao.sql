@@ -65,6 +65,8 @@ INSERT INTO staging.locacao (
     data_fim,
     valor_total,
     status,
+    patio_origem_id,
+    patio_destino_id,
     fonte_dados
 )
 SELECT
@@ -75,6 +77,8 @@ SELECT
     r.data_fim,
     l.valor_total,
     r.status,
+    r.patio_retirada_id::VARCHAR,
+    l.patio_entrega_id::VARCHAR,
     'WesleyConceicao' AS fonte_dados
 FROM WesleyConceicao.locacao l
 LEFT JOIN WesleyConceicao.reserva r ON r.id_reserva = l.reserva_id;

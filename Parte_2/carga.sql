@@ -21,7 +21,7 @@ FROM staging.patio;
 
 -- fato_locacao
 INSERT INTO dw.fato_locacao (
-    cliente_sk, veiculo_sk, data_inicio_sk, data_fim_sk, duracao_dias, valor_total, status, fonte_dados
+    cliente_sk, veiculo_sk, data_inicio_sk, data_fim_sk, duracao_dias, valor_total, status, patio_origem_sk, patio_chegada_sk, fonte_dados
 )
 SELECT
     dc.cliente_sk,
@@ -31,6 +31,8 @@ SELECT
     l.duracao_dias,
     l.valor_total,
     l.status,
+    l.patio_origem_id,
+    l.patio_destino_id,
     l.fonte_dados
 FROM staging.locacao l
 JOIN dw.dim_cliente dc ON dc.cliente_id = l.cliente_id AND dc.fonte_dados = l.fonte_dados

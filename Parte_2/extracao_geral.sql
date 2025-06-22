@@ -67,6 +67,8 @@ INSERT INTO staging.locacao (
     data_fim,
     valor_total,
     status,
+    patio_origem_id,
+    patio_destino_id,
     fonte_dados
 )
 SELECT
@@ -77,6 +79,8 @@ SELECT
     l.data_devolucao_real::DATE,
     cb.valor_final,
     cb.status_pagamento,
+    l.patio_saida_id::VARCHAR,
+    l.patio_chegada_id::VARCHAR,
     'breno' AS fonte_dados
 FROM breno.locacao l
 JOIN breno.condutor cond ON cond.condutor_id = l.condutor_id
@@ -192,6 +196,8 @@ INSERT INTO staging.locacao (
     data_fim,
     valor_total,
     status,
+    patio_origem_id,
+    patio_destino_id,
     fonte_dados
 )
 SELECT
@@ -205,6 +211,8 @@ SELECT
         WHEN l.devolucao_real IS NOT NULL THEN 'Concluída'
         ELSE 'Em Andamento'
     END,
+    l.patio_retirada_id::VARCHAR,
+    l.patio_devolucao_id::VARCHAR,
     'BRJCM' AS fonte_dados
 FROM BRJCM.locacoes l;
 
@@ -324,6 +332,8 @@ INSERT INTO staging.locacao (
     data_fim,
     valor_total,
     status,
+    patio_origem_id,
+    patio_destino_id,
     fonte_dados
 )
 SELECT
@@ -334,6 +344,8 @@ SELECT
     cb.data_emissao,  -- usaremos data da fatura como data_fim
     cb.valor,
     ct.status_locacao,
+    ct.id_patio_retirada::VARCHAR,
+    ct.id_patio_devolucao_efetiva::VARCHAR,
     'rickauer' AS fonte_dados
 FROM rickauer.contrato ct
 LEFT JOIN rickauer.cobranca cb ON cb.id_contrato = ct.id_contrato;
@@ -449,6 +461,8 @@ INSERT INTO staging.locacao (
     data_fim,
     valor_total,
     status,
+    patio_origem_id,
+    patio_destino_id,
     fonte_dados
 )
 SELECT
@@ -459,6 +473,8 @@ SELECT
     r.data_fim,
     l.valor_total,
     r.status,
+    r.patio_retirada_id::VARCHAR,
+    l.patio_entrega_id::VARCHAR,
     'WesleyConceicao' AS fonte_dados
 FROM WesleyConceicao.locacao l
 LEFT JOIN WesleyConceicao.reserva r ON r.id_reserva = l.reserva_id;

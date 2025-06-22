@@ -58,6 +58,8 @@ CREATE TABLE dw.fato_locacao (
     duracao_dias INT,
     valor_total NUMERIC,
     status VARCHAR,
+    patio_origem_sk INT REFERENCES dw.dim_patio(patio_sk),
+    patio_chegada_sk INT REFERENCES dw.dim_patio(patio_sk),
     fonte_dados VARCHAR
 );
 

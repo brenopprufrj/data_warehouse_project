@@ -71,6 +71,8 @@ INSERT INTO staging.locacao (
     data_fim,
     valor_total,
     status,
+    patio_origem_id,
+    patio_destino_id,
     fonte_dados
 )
 SELECT
@@ -81,6 +83,8 @@ SELECT
     cb.data_emissao,  -- usaremos data da fatura como data_fim
     cb.valor,
     ct.status_locacao,
+    ct.id_patio_retirada::VARCHAR,
+    ct.id_patio_devolucao_efetiva::VARCHAR,
     'rickauer' AS fonte_dados
 FROM rickauer.contrato ct
 LEFT JOIN rickauer.cobranca cb ON cb.id_contrato = ct.id_contrato;

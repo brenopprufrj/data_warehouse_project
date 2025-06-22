@@ -66,6 +66,8 @@ INSERT INTO staging.locacao (
     data_fim,
     valor_total,
     status,
+    patio_origem_id,
+    patio_destino_id,
     fonte_dados
 )
 SELECT
@@ -76,6 +78,8 @@ SELECT
     l.data_devolucao_real::DATE,
     cb.valor_final,
     cb.status_pagamento,
+    l.patio_saida_id::VARCHAR,
+    l.patio_chegada_id::VARCHAR,
     'breno' AS fonte_dados
 FROM breno.locacao l
 JOIN breno.condutor cond ON cond.condutor_id = l.condutor_id
