@@ -1,1 +1,1 @@
-Falta Fazer o transform.sql, alterar o modelo estrela se necessario e gerar os relatorios pedidos.
+Integrantes do Grupo: Breno Valente Manhães - 122038517; João Pedro Moretti Fontes Ferreira - 122081366; Murilo Jorge de Figueiredo - 122079597
