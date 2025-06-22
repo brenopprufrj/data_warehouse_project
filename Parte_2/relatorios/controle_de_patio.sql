@@ -1,3 +1,5 @@
+-- Grupo: Breno Valente Manhães - 122038517; João Pedro Moretti Fontes Ferreira - 122081366; Murilo Jorge de Figueiredo - 122079597
+
 SELECT
     dp.localizacao AS patio,
     dv.grupo_padronizado AS grupo_veiculo,

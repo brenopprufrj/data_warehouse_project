@@ -1,3 +1,5 @@
+-- Grupo: Breno Valente Manhães - 122038517; João Pedro Moretti Fontes Ferreira - 122081366; Murilo Jorge de Figueiredo - 122079597
+
 -- ============================================
 -- DIM_TEMPO (baseado em datas de reserva e locação)
 -- ============================================
